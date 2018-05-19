@@ -7,7 +7,7 @@ from app.forms import LoginForm
 @app.route('/index')
 def index():
     user = {'username': 'Administrator'}
-    return render_template('index.html', title='Home', user=user)
+    return render_template('home/index.html', title='Home', user=user)
 
 
 @app.route('/login', methods=['GET','POST'])

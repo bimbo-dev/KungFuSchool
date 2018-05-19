@@ -28,10 +28,10 @@ student_parents = db.Table('student_parents',
 
 
 class Student(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, db.ForeignKey('person.id'), primary_key=True)
     date_of_birth = db.Column(db.Date, nullable=False)
     address = db.Column(db.Text)
-    person_id = db.Column(db.Integer, db.ForeignKey('person.id'), nullable=False)
+    # person_id = db.Column(db.Integer, db.ForeignKey('person.id'), nullable=False)
     person = db.relationship('Person', backref='student')
     parents = db.relationship('Person', secondary=student_parents, backref='student')
 
