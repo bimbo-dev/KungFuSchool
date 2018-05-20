@@ -9,9 +9,11 @@ db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 
 # configure Blueprints
-from .views.home import home_route
-app.register_blueprint(home_route)
+from .views.home import home
+app.register_blueprint(home)
 
 
 from app import models
+from app.models import seed
+
 
