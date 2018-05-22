@@ -1,0 +1,46 @@
+{% extends "./_layout.html" %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Payment Items</h3>
+                <div class="card-options">
+                    <a href="#" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i> Add New Payment Item</a>
+                </div>
+            </div>
+            <div class="table-responsive">
+                <table class="table card-table table-bordered" id="payment-items">
+                    <thead>
+                        <tr>
+                            <th>Item Description</th>
+                            <th>Price</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+
+<script type="text/javascript">
+
+    $(document).ready(function(){
+
+        $('#payment-items').dataTable();
+
+    });
+
+</script>
+
+{% endblock %}
