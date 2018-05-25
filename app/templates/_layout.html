@@ -23,16 +23,22 @@
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,400,400i,500,500i,600,600i,700,700i&amp;subset=latin-ext">
-    <script src="{{ url_for('static', filename='assets/js/require.min.js') }}"></script>
+    <!--<script src="{{ url_for('static', filename='assets/js/require.min.js') }}"></script>-->
     <script>
-      requirejs.config({
-          baseUrl: './static'
-      });
+      // requirejs.config({
+      //     baseUrl: './static'
+      // });
     </script>
     <!-- Dashboard Core -->
     <link href="{{ url_for('static', filename='assets/css/dashboard.css') }}" rel="stylesheet" />
-    <script src="{{ url_for('static', filename='assets/js/dashboard.js') }}"></script>
-    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/jquery.dataTables.min.css') }}">
+      <script src="{{ url_for('static', filename='assets/js/vendors/jquery-3.2.1.min.js') }}"></script>
+      <script src="{{ url_for('static', filename='assets/js/vendors/bootstrap.bundle.min.js') }}"></script>
+      <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+      <!--<script src="{{ url_for('static', filename='assets/js/dashboard.js') }}"></script>-->
+    <!--<link rel="stylesheet" href="{{ url_for('static', filename='assets/css/jquery.dataTables.min.css') }}">-->
+    <!--<script src="{{ url_for('static', filename='assets/js/jquery-1.12.4.js') }}"></script>-->
+    <!--<script src="{{ url_for('static', filename='assets/js/jquery.dataTables.min.js') }}"></script>-->
+
   </head>
 
   <body class="">
@@ -48,6 +54,7 @@
               <div class="d-flex order-lg-2 ml-auto">
                 <div class="dropdown">
                   <a href="#" class="nav-link pr-0 leading-none" data-toggle="dropdown">
+
                     <span class="avatar" style="background-image: url(../static/assets/images/avatar-default.png)"></span>
                     <span class="ml-2 d-none d-lg-block">
                       <span class="text-default">Jet Lee</span>
@@ -133,7 +140,31 @@
 
 </html>
 
-<script src="{{ url_for('static', filename='assets/js/jquery-1.12.4.js') }}"></script>
-<script src="{{ url_for('static', filename='assets/js/jquery.dataTables.min.js') }}"></script>
 
-{% block scripts %}{% endblock %}
+<script type="application/javascript">
+  function confirmDelete(url, title) {
+       swal({
+           title: title,
+           icon: "warning",
+           buttons: true,
+           dangerMode: true
+       }).then((deletekey) => {
+           if(deletekey){
+               $.get(url, function(data){
+                   if(data.success){
+                       swal("Successfully deleted!", {
+                            icon: "success"
+                       }).then(() => {
+                            location.reload(true);
+                       });
+                   }else{
+                       swal("An Error Occurred!", {
+                            icon: "error" });
+                   }
+               });
+            }
+       });
+  }
+</script>
+{% block scripts %}
+{% endblock %}

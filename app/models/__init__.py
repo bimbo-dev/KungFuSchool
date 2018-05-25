@@ -48,6 +48,7 @@ class Student(db.Model):
     date_of_birth = db.Column(db.Date, nullable=False)
     address = db.Column(db.Text)
     parents = db.relationship('Person', secondary=student_parents)
+    is_deleted = db.Column(db.Boolean, default=False)
 
 
 # Payment_Item Table
@@ -55,6 +56,7 @@ class PaymentItem(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     description = db.Column(db.String(64), nullable=False)
     price = db.Column(db.Float, nullable=False)
+    is_deleted = db.Column(db.Boolean, default=False)
 
 
 # Student_Payment Table
