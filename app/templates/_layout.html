@@ -92,8 +92,8 @@
                     <a href="javascript:void(0)" class="nav-link" data-toggle="dropdown"><i class="fe fe-box"></i> Administration</a>
                     <div class="dropdown-menu dropdown-menu-arrow">
                       <a href="{{ url_for('finance.index') }}" class="dropdown-item ">Payment Items</a>
-                      <a href="#" class="dropdown-item ">Ranks</a>
-                      <a href="#" class="dropdown-item ">Levels</a>
+                      <a href="{{ url_for('rank.index') }}" class="dropdown-item ">Ranks</a>
+                      <a href="{{ url_for('level.index') }}" class="dropdown-item ">Levels</a>
                     </div>
                   </li>
                 </ul>

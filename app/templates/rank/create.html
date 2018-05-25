@@ -1,0 +1,36 @@
+{% extends "./_layout.html" %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-8">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">{{ title }} Rank</h3>
+            </div>
+            <div class="card-body">
+                <form class="form" method="post">
+                    {{ form.hidden_tag() }}
+                    {{ form.id }}
+                    <div class="form-group">
+                        {{ form.belt_colour.label(class_='form-label')}}
+                        {{ form.belt_colour(class_='form-control', placeholder='Enter Belt Colour') }}
+                        {% if form.belt_colour.errors %}
+                          <br>
+                          {% for error in form.belt_colour.errors %}
+                            <span style="color:red">[{{error}}]</span>
+                          {% endfor %}
+                      {% endif %}
+                    </div>
+                    <div class="form-footer">
+                        <a href="{{ url_for('rank.index') }}" class="btn btn-secondary">Cancel</a>
+                        <button type="submit" class="btn btn-success">Save</button>
+
+                  </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

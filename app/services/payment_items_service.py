@@ -6,7 +6,7 @@ def get_all_payment_items():
     return PaymentItem.query.filter_by(is_deleted=False).all()
 
 
-def get_all_payment_items_on_page(page):
+def get_all_payment_items_by_page(page):
     return PaymentItem.query.order_by(PaymentItem.description) \
         .filter_by(is_deleted=False) \
         .paginate(page, app.config['PAGE_SIZE'], False)

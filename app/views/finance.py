@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, redirect, url_for, flash, jsonify, request
-from app.models import PaymentItem
+# from app.models import PaymentItem
 from app.forms import PaymentItemForm
 from ..services.payment_items_service import *
 
@@ -9,7 +9,7 @@ finance = Blueprint('finance', __name__)
 @finance.route('/finance')
 def index():
     page = request.args.get('page', 1, type=int)
-    payment_items = get_all_payment_items_on_page(page)
+    payment_items = get_all_payment_items_by_page(page)
     next_url = url_for('finance.index', page=payment_items.next_num) \
         if payment_items.has_next else None
     prev_url = url_for('finance.index', page=payment_items.prev_num) \

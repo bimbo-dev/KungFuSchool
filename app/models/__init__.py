@@ -65,3 +65,25 @@ class StudentPayment(db.Model):
     student_id = db.Column(db.Integer, db.ForeignKey('student.id'), nullable=False)
     payment_item_id = db.Column(db.Integer, db.ForeignKey('payment_item.id'), nullable=False)
     payment_date = db.Column(db.DateTime, nullable=False)
+
+
+# Rank Table
+class Rank(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    belt_colour = db.Column(db.String(64), nullable=False)
+    is_deleted = db.Column(db.Boolean, default=False)
+
+
+# Student Rank Association Table
+student_ranks = db.Table('student_ranks',
+    db.Column('student_id', db.Integer, db.ForeignKey('student.id'), primary_key=True),
+    db.Column('rank_id', db.Integer, db.ForeignKey('rank.id'), primary_key=True),
+    db.Column('date_attained', db.DateTime, nullable=False)
+)
+
+
+# Level Table
+class Level(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    description = db.Column(db.String(64), nullable=False)
+    is_deleted = db.Column(db.Boolean, default=False)
