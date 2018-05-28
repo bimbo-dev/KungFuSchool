@@ -3,7 +3,7 @@ from app.models import Rank
 
 
 def get_all_ranks():
-    return Rank.query.filter_by(is_delete=False).all()
+    return Rank.query.filter_by(is_deleted=False).all()
 
 
 def get_all_ranks_by_page(page):

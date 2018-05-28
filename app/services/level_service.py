@@ -3,7 +3,7 @@ from app.models import Level
 
 
 def get_all_levels():
-    return Level.query.filter_by(is_delete=False).all()
+    return Level.query.filter_by(is_deleted=False).all()
 
 
 def get_all_levels_by_page(page):

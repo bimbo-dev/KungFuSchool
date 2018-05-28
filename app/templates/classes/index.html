@@ -8,7 +8,7 @@
             <div class="card-header">
                 <h3 class="card-title">{{ title }}</h3>
                 <div class="card-options">
-                    <a href="{{ url_for('rank.save') }}" class="btn btn-primary"><i class="fa fa-plus"></i> Add New Rank</a>
+                    <a href="{{ url_for('classes.save') }}" class="btn btn-primary"><i class="fa fa-plus"></i> Add New Class</a>
                 </div>
             </div>
             <div class="card-body">
@@ -17,7 +17,7 @@
                     <thead>
                         <tr>
                             <th></th>
-                            <th>Belt Colour</th>
+                            <th>Description</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -25,10 +25,10 @@
                     {% for item in items %}
                         <tr>
                             <td>{{ item.id }}</td>
-                            <td>{{ item.belt_colour }}</td>
+                            <td>{{ item.level.description }} - {{ item.class_day }} {{ item.class_time  }}</td>
                             <td>
-                                <a href="{{ url_for('rank.save', rankid=item.id) }}" class="btn btn-outline-warning btn-sm">Edit</a>
-                                <a href="#" data-rankId="{{item.id}}" class="btn btn-outline-danger btn-sm delete-item">Delete</a>
+                                <a href="{{ url_for('classes.save', classid=item.id) }}" class="btn btn-outline-warning btn-sm">Edit</a>
+                                <a data-classId="{{item.id}}" class="btn btn-outline-danger btn-sm delete-item">Delete</a>
                             </td>
                         </tr>
                     {% endfor %}
@@ -49,11 +49,10 @@
 
     $(document).ready(function () {
 
-
         $('.delete-item').on('click', function (){
-           var id = $(this).attr('data-rankId');
-           var url = '/rank/delete/' + id;
-           var title = "Delete This Rank?"
+           var id = $(this).attr('data-classId');
+           var url = '/classes/delete/' + id;
+           var title = "Delete This Class?"
 
             confirmDelete(url, title);
         });

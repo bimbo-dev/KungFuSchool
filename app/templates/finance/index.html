@@ -11,8 +11,9 @@
                     <a href="{{ url_for('finance.save') }}" class="btn btn-primary"><i class="fa fa-plus"></i> Add New Payment Item</a>
                 </div>
             </div>
+            <div class="card-body">
             <div class="table-responsive">
-                <table class="table card-table table-bordered" id="payment-items">
+                <table class="table card-table table-bordered page-table">
                     <thead>
                         <tr>
                             <th>Item Description</th>
@@ -34,14 +35,8 @@
                     </tbody>
                 </table>
             </div>
-            <div class="card-footer">
-                {% if prev_url %}
-                    <a href="{{ prev_url }}" class="btn btn-secondary"><i class="fa fa-chevron-left"></i> Prev</a>
-                {% endif %}
-                {% if next_url %}
-                    <a href="{{ next_url }}" class="btn btn-secondary"><i class="fa fa-chevron-right"></i> Next</a>
-                {% endif %}
             </div>
+
         </div>
     </div>
 </div>

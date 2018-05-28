@@ -8,7 +8,7 @@
             <div class="card-header">
                 <h3 class="card-title">{{ title }}</h3>
                 <div class="card-options">
-                    <a href="{{ url_for('rank.save') }}" class="btn btn-primary"><i class="fa fa-plus"></i> Add New Rank</a>
+                    <a href="{{ url_for('student.save') }}" class="btn btn-primary"><i class="fa fa-plus"></i> Add New Student</a>
                 </div>
             </div>
             <div class="card-body">
@@ -16,8 +16,9 @@
                 <table class="table card-table table-bordered page-table">
                     <thead>
                         <tr>
-                            <th></th>
-                            <th>Belt Colour</th>
+                            <th>Student Number</th>
+                            <th>Student Name</th>
+                            <th>Date Joined</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -25,10 +26,12 @@
                     {% for item in items %}
                         <tr>
                             <td>{{ item.id }}</td>
-                            <td>{{ item.belt_colour }}</td>
+                            <td>{{ item.last_name }} {{ item.first_name }}</td>
+                            <td>{{ item.date_joined }}</td>
                             <td>
-                                <a href="{{ url_for('rank.save', rankid=item.id) }}" class="btn btn-outline-warning btn-sm">Edit</a>
-                                <a href="#" data-rankId="{{item.id}}" class="btn btn-outline-danger btn-sm delete-item">Delete</a>
+                                <a href="{{ url_for('student.details', studentid=item.id) }}", class="btn btn-outline-secondary btn-sm">Details</a>
+                                <a href="{{ url_for('student.save', studentid=item.id) }}" class="btn btn-outline-warning btn-sm">Edit</a>
+                                <a data-studentId="{{item.id}}" class="btn btn-outline-danger btn-sm delete-item">Delete</a>
                             </td>
                         </tr>
                     {% endfor %}
@@ -49,11 +52,10 @@
 
     $(document).ready(function () {
 
-
         $('.delete-item').on('click', function (){
-           var id = $(this).attr('data-rankId');
-           var url = '/rank/delete/' + id;
-           var title = "Delete This Rank?"
+           var id = $(this).attr('data-studentId');
+           var url = '/student/delete/' + id;
+           var title = "Delete This Student?"
 
             confirmDelete(url, title);
         });

@@ -8,14 +8,8 @@ rank = Blueprint('rank', __name__)
 
 @rank.route('/rank')
 def index():
-    page = request.args.get('page', 1, type=int)
-    ranks = get_all_ranks_by_page(page)
-    next_url = url_for('rank.index', page=ranks.next_num) \
-        if ranks.has_next else None
-    prev_url = url_for('rank.index', page=ranks.prev_num) \
-        if ranks.has_prev else None
-    return render_template('rank/index.html', title='Ranks', items=ranks.items,
-                           next_url=next_url, prev_url=prev_url)
+    ranks = get_all_ranks()
+    return render_template('rank/index.html', title='Ranks', items=ranks)
 
 
 @rank.route('/rank/create', methods=['GET', 'POST'])

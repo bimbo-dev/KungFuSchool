@@ -8,14 +8,8 @@ finance = Blueprint('finance', __name__)
 
 @finance.route('/finance')
 def index():
-    page = request.args.get('page', 1, type=int)
-    payment_items = get_all_payment_items_by_page(page)
-    next_url = url_for('finance.index', page=payment_items.next_num) \
-        if payment_items.has_next else None
-    prev_url = url_for('finance.index', page=payment_items.prev_num) \
-        if payment_items.has_prev else None
-    return render_template('finance/index.html', title='Finance', items=payment_items.items,
-                           next_url=next_url, prev_url=prev_url)
+    payment_items = get_all_payment_items()
+    return render_template('finance/index.html', title='Finance', items=payment_items)
 
 
 @finance.route('/finance/create', methods=['GET', 'POST'])

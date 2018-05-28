@@ -11,11 +11,13 @@ migrate = Migrate(app, db)
 login = LoginManager(app)
 
 # configure Blueprints
-from .views import home, finance, rank, level
+from .views import home, finance, rank, level, classes, student
 app.register_blueprint(home)
 app.register_blueprint(finance)
 app.register_blueprint(rank)
 app.register_blueprint(level)
+app.register_blueprint(classes)
+app.register_blueprint(student)
 
 
 from app import models

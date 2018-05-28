@@ -1,0 +1,77 @@
+{% extends "./_layout.html" %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Student {{ title }}</h3>
+            </div>
+            <div class="card-body">
+                <p>
+                    Student Number :
+                    <b>{{ student.id }}</b>
+                </p>
+                <p>
+                    Student Name :
+                    <b>{{ ("%s %s %s" % (student.person.last_name, student.person.first_name, student.person.other_names|'')) }}</b>
+                </p>
+                <p>
+                    Date of Birth :
+                    <b>{{ student.date_of_birth }}</b>
+                </p>
+                {% if student.person.phone_number %}
+                <p>
+                    Phone Number :
+                    <b>{{ student.person.phone_number }}</b>
+                </p>
+                {% endif %}
+                {% if student.person.email_address %}
+                <p>
+                    Email Address :
+                    <b>{{ student.person.email_address }}</b>
+                </p>
+                {% endif %}
+                {% if student.address %}
+                <p>
+                    Home Address :
+                    <b>{{ student.address }}</b>
+                </p>
+                {% endif %}
+                <p>
+                    Date Joined :
+                    <b>{{ student.date_joined }}</b>
+                </p>
+                {% if student.parents %}
+                    <hr>
+                    <h3>Parents Information</h3>
+                    {% for parent in student.parents %}
+                    <p>
+                        Parent Name:
+                        <b>{{ ("%s %s %s" % (parent.last_name, parent.first_name, parent.other_names|'')) }}</b>
+                    </p>
+                    {% endfor %}
+                {% endif %}
+                <hr>
+                <a href="#" class="btn btn-primary"> Add Parent</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
+
+{% block scripts %}
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+
+    });
+
+</script>
+
+{% endblock %}

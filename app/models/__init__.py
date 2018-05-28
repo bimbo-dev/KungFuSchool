@@ -46,6 +46,7 @@ student_parents = db.Table('student_parents',
 class Student(db.Model):
     id = db.Column(db.Integer, db.ForeignKey('person.id'), primary_key=True)
     date_of_birth = db.Column(db.Date, nullable=False)
+    date_joined = db.Column(db.Date, nullable=False)
     address = db.Column(db.Text)
     parents = db.relationship('Person', secondary=student_parents)
     is_deleted = db.Column(db.Boolean, default=False)
@@ -59,7 +60,7 @@ class PaymentItem(db.Model):
     is_deleted = db.Column(db.Boolean, default=False)
 
 
-# Student_Payment Table
+# Student Payment Association Table
 class StudentPayment(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     student_id = db.Column(db.Integer, db.ForeignKey('student.id'), nullable=False)
@@ -86,4 +87,13 @@ student_ranks = db.Table('student_ranks',
 class Level(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     description = db.Column(db.String(64), nullable=False)
+    is_deleted = db.Column(db.Boolean, default=False)
+    classes = db.relationship('Class', backref='level', lazy=True)
+
+
+class Class(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    level_id = db.Column(db.Integer, db.ForeignKey('level.id'), nullable=False)
+    class_day = db.Column(db.String(64), nullable=False)
+    class_time = db.Column(db.String(32), nullable=False)
     is_deleted = db.Column(db.Boolean, default=False)

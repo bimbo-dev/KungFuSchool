@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, redirect, url_for, flash, jsonify, request
+from flask import Blueprint, render_template, redirect, url_for, flash, jsonify
 from ..forms import LevelForm
 from ..services.level_service import *
 
@@ -8,14 +8,8 @@ level = Blueprint('level', __name__)
 
 @level.route('/level')
 def index():
-    page = request.args.get('page', 1, type=int)
-    levels = get_all_levels_by_page(page)
-    next_url = url_for('level.index', page=levels.next_num) \
-        if levels.has_next else None
-    prev_url = url_for('level.index', page=levels.prev_num) \
-        if levels.has_prev else None
-    return render_template('level/index.html', title='Levels', items=levels.items,
-                           next_url=next_url, prev_url=prev_url)
+    levels = get_all_levels()
+    return render_template('level/index.html', title='Levels', items=levels)
 
 
 @level.route('/level/create', methods=['GET', 'POST'])
