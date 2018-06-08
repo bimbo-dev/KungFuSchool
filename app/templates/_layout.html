@@ -39,7 +39,8 @@
       <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
     <!--<script src="{{ url_for('static', filename='assets/js/jquery.dataTables.min.js') }}"></script>-->
-
+    {% block links %}
+    {% endblock %}
   </head>
 
   <body class="">
@@ -92,7 +93,8 @@
                   <li class="nav-item">
                     <a href="javascript:void(0)" class="nav-link" data-toggle="dropdown"><i class="fe fe-box"></i> Administration</a>
                     <div class="dropdown-menu dropdown-menu-arrow">
-                      <a href="{{ url_for('finance.index') }}" class="dropdown-item ">Payment Items</a>
+                      <a href="{{ url_for('finance.index') }}" class="dropdown-item ">Finances</a>
+                      <a href="{{ url_for('finance.paymentitems') }}" class="dropdown-item ">Payment Items</a>
                       <a href="{{ url_for('rank.index') }}" class="dropdown-item ">Ranks</a>
                       <a href="{{ url_for('level.index') }}" class="dropdown-item ">Levels</a>
                     </div>
@@ -108,7 +110,6 @@
                     <a href="javascript:void(0)" class="nav-link" data-toggle="dropdown"><i class="fe fe-users"></i> Students</a>
                     <div class="dropdown-menu dropdown-menu-arrow">
                       <a href="{{ url_for('student.index') }}" class="dropdown-item ">Manage Students</a>
-                      <a href="{{ url_for('student.index') }}" class="dropdown-item ">Class Attendance</a>
                     </div>
                   </li>
                 </ul>
@@ -121,9 +122,11 @@
         <div class="my-3 my-md-5">
             <div class="container">
                 <div class="page-header">
+                    {% if title %}
                   <h1 class="page-title">
                     {{ title }}
                   </h1>
+                    {% endif %}
                 </div>
                 {% with messages = get_flashed_messages() %}
                 {% if messages %}

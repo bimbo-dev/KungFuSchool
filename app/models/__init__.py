@@ -51,6 +51,15 @@ class Student(db.Model):
     parents = db.relationship('Person', secondary=student_parents)
     is_deleted = db.Column(db.Boolean, default=False)
 
+    def full_name(self):
+        return '{} {}'.format(self.person.first_name, self.person.last_name)
+
+    def current_rank(self):
+        if len(self.ranks) > 0:
+            return (sorted(self.ranks, key=lambda rank: rank.date_attained, reverse=True))[0].rank.belt_colour or None
+        else:
+            return None
+
 
 # Payment_Item Table
 class PaymentItem(db.Model):
@@ -59,6 +68,9 @@ class PaymentItem(db.Model):
     price = db.Column(db.Float, nullable=False)
     is_deleted = db.Column(db.Boolean, default=False)
 
+    def full_description(self):
+        return '{} - ${:04.2f}'.format(self.description, self.price)
+
 
 # Student Payment Association Table
 class StudentPayment(db.Model):
@@ -66,6 +78,8 @@ class StudentPayment(db.Model):
     student_id = db.Column(db.Integer, db.ForeignKey('student.id'), nullable=False)
     payment_item_id = db.Column(db.Integer, db.ForeignKey('payment_item.id'), nullable=False)
     payment_date = db.Column(db.DateTime, nullable=False)
+    payment_item = db.relationship('PaymentItem')
+    student = db.relationship('Student', backref='payments')
 
 
 # Rank Table
@@ -75,12 +89,14 @@ class Rank(db.Model):
     is_deleted = db.Column(db.Boolean, default=False)
 
 
-# Student Rank Association Table
-student_ranks = db.Table('student_ranks',
-    db.Column('student_id', db.Integer, db.ForeignKey('student.id'), primary_key=True),
-    db.Column('rank_id', db.Integer, db.ForeignKey('rank.id'), primary_key=True),
-    db.Column('date_attained', db.DateTime, nullable=False)
-)
+# Student Rank Association
+class StudentRank(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    student_id = db.Column(db.Integer, db.ForeignKey('student.id'), nullable=False)
+    rank_id = db.Column(db.Integer, db.ForeignKey('rank.id'), nullable=False)
+    date_attained = db.Column(db.DateTime, nullable=False)
+    student = db.relationship('Student', backref='ranks')
+    rank = db.relationship('Rank', backref='students')
 
 
 # Level Table

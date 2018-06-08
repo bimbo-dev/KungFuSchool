@@ -1,5 +1,13 @@
 from app import app, db
-from app.models import PaymentItem
+from app.models import PaymentItem, StudentPayment
+
+
+def get_all_payments():
+    return StudentPayment.query.all()
+
+
+def get_all_payments_in_range(begin, end):
+    return StudentPayment.query.filter(StudentPayment.payment_date.between(begin, end))
 
 
 def get_all_payment_items():

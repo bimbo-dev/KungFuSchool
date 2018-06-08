@@ -1,15 +1,27 @@
 from flask import Blueprint, render_template, redirect, url_for, flash, jsonify, request
 # from app.models import PaymentItem
 from app.forms import PaymentItemForm
-from ..services.payment_items_service import *
+from ..services.finance_service import *
 
 finance = Blueprint('finance', __name__)
 
 
 @finance.route('/finance')
 def index():
+    # begin = request.args.get('begin', )
+    begin = request.args.get('begin', None)
+    end = request.args.get('end', None)
+    if begin is not None and end is not None:
+        payments = get_all_payments_in_range(begin, end)
+    else:
+        payments = get_all_payments()
+    return render_template('finance/index.html', title='Finance', items=payments)
+
+
+@finance.route('/finance/items')
+def paymentitems():
     payment_items = get_all_payment_items()
-    return render_template('finance/index.html', title='Finance', items=payment_items)
+    return render_template('finance/paymentitem.html', title='Payment Item', items=payment_items)
 
 
 @finance.route('/finance/create', methods=['GET', 'POST'])

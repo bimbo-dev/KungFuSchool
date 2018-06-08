@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, HiddenField, DateField
+from wtforms import StringField, HiddenField, DateField, SelectField
 from wtforms.validators import DataRequired
 
 
@@ -23,3 +23,15 @@ class StudentBindingModel(object):
     email_address = None
     date_of_birth = None
     address = None
+
+
+class StudentRankForm(FlaskForm):
+    id = HiddenField('Id')
+    student_id = HiddenField('Student Id')
+    rank_id = SelectField('Rank', coerce=int, validators=[DataRequired()])
+
+
+class StudentPaymentForm(FlaskForm):
+    id = HiddenField('Id')
+    student_id = HiddenField('Student Id')
+    payment_item_id = SelectField('Payment', coerce=int, validators=[DataRequired()])
