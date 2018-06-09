@@ -16,9 +16,9 @@
                     <form class="form-inline" method="get">
                         <label class="form-label">Select Date Range : </label>
                         &nbsp;
-                        <input class="form-control" id="start-date" name="begin">
+                        <input class="form-control" id="start-date" name="begin" value="{{ range['Begin'] }}">
                         -to-
-                        <input class="form-control" id="end-date" name="end">
+                        <input class="form-control" id="end-date" name="end" value="{{ range['End'] }}">
                         &nbsp;&nbsp;
                         <button type="submit" class="btn btn-success">View</button>
                     </form>
@@ -62,9 +62,12 @@
 <script type="text/javascript">
 
    $(document).ready(function(){
+       var today = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate());
+
         $('#start-date').datepicker({
             uiLibrary: 'bootstrap4',
-            format: 'yyyy-mm-dd'
+            format: 'yyyy-mm-dd',
+            maxDate: today
         });
 
         $('#end-date').datepicker({
@@ -72,7 +75,8 @@
             format: 'yyyy-mm-dd',
             minDate: function () {
                 return $('#start-date').val();
-            }
+            },
+            maxDate: today
         });
     });
 </script>

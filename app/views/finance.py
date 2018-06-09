@@ -15,7 +15,8 @@ def index():
         payments = get_all_payments_in_range(begin, end)
     else:
         payments = get_all_payments()
-    return render_template('finance/index.html', title='Finance', items=payments)
+    range = {'Begin': begin or '', 'End': end or ''}
+    return render_template('finance/index.html', title='Finance', items=payments, range=range)
 
 
 @finance.route('/finance/items')

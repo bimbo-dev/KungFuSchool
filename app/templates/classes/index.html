@@ -25,8 +25,9 @@
                     {% for item in items %}
                         <tr>
                             <td>{{ item.id }}</td>
-                            <td>{{ item.level.description }} - {{ item.class_day }} {{ item.class_time  }}</td>
+                            <td>{{ item.full_description() }}</td>
                             <td>
+                                <a href="{{ url_for('classes.class_attendance', classid=item.id) }}" class="btn btn-outline-dark btn-sm">Manage Class Attendance</a>
                                 <a href="{{ url_for('classes.save', classid=item.id) }}" class="btn btn-outline-warning btn-sm">Edit</a>
                                 <a data-classId="{{item.id}}" class="btn btn-outline-danger btn-sm delete-item">Delete</a>
                             </td>

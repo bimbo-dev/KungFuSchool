@@ -1,5 +1,6 @@
 from app import db
-from ..models import Class
+from ..models import Class, ClassAttendance
+from datetime import date
 
 
 def get_all_classes():
@@ -32,3 +33,17 @@ def delete_class(classid):
 
 def get_class_by_day_time(day, time):
     return Class.query.filter_by(is_deleted=False, class_day=day, class_time=time).first()
+
+
+def add_attendance(form):
+    today = date.today()
+    students = form.student_id.data
+    attendance = [ClassAttendance(student_id=st, class_id=form.class_id.data, date_attended=today) for st in students]
+    db.session.add_all(attendance)
+    db.session.commit()
+
+
+def remove_attandance(id):
+    attendance = ClassAttendance.query.get(id)
+    db.session.delete(attendance)
+    db.session.commit()

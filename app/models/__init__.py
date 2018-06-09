@@ -113,3 +113,15 @@ class Class(db.Model):
     class_day = db.Column(db.String(64), nullable=False)
     class_time = db.Column(db.String(32), nullable=False)
     is_deleted = db.Column(db.Boolean, default=False)
+
+    def full_description(self):
+        return '{} - {} {}'.format(self.level.description, self.class_day, self.class_time)
+
+
+class ClassAttendance(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    student_id = db.Column(db.Integer, db.ForeignKey('student.id'), nullable=False)
+    class_id = db.Column(db.Integer, db.ForeignKey('class.id'), nullable=False)
+    date_attended = db.Column(db.Date, nullable=False)
+    student = db.relationship('Student')
+    class_obj = db.relationship('Class', backref='attendance')
