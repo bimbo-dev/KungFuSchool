@@ -1,6 +1,7 @@
 from app import app, db
-from ..models import User, PaymentItem, Rank, Level
+from ..models import User, PaymentItem, Rank, Level, Class, Student, Person, StudentRank
 from werkzeug.security import generate_password_hash
+from datetime import datetime, date
 
 
 @app.cli.command()
@@ -48,6 +49,30 @@ def seed_database():
             Level(id=2, description='Intermediate'),
             Level(id=3, description='Advanced')
         ])
+        db.session.commit()
+
+    # Seeding Class Table
+    if db.session.query(Class).scalar() is None:
+        print('Seeding Classes Table')
+        db.session.add_all([
+            Class(level_id=1, class_day='Monday', class_time='10 am'),
+            Class(level_id=2, class_day='Tuesday', class_time='3 pm'),
+            Class(level_id=3, class_day='Wednesday', class_time='8 pm')
+        ])
+        db.session.commit()
+
+    # Seeding Student Table
+    if db.session.query(Student).scalar() is None:
+        print('Seeding Student Table')
+        student_one = Student(person=Person(last_name='Doe', first_name='John', phone_number='5552338533',
+                                  email_address='john@mail.com'),
+                    date_of_birth=datetime.strptime('1999-04-04', '%Y-%m-%d').date(), date_joined=date.today())
+        student_two = Student(person=Person(last_name='Essien', first_name='Mark', phone_number='5552234553',
+                                  email_address='mark@mail.com'),
+                    date_of_birth=datetime.strptime('1989-12-24', '%Y-%m-%d').date(), date_joined=date.today())
+        student_one.ranks.append(StudentRank(rank_id=1, date_attained=date.today()))
+        student_two.ranks.append(StudentRank(rank_id=1, date_attained=date.today()))
+        db.session.add_all([student_one, student_two])
         db.session.commit()
 
     print('Done.')

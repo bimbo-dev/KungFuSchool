@@ -1,15 +1,16 @@
 from flask import Blueprint, render_template, redirect, url_for, flash
 from app.forms import LoginForm
-from flask_login import current_user, login_user, logout_user
+from flask_login import current_user, login_user, logout_user, login_required
 from app.models import User
 
 home = Blueprint('home', __name__)
 
 
-@home.route('/', methods=['GET'])
+@home.route('/')
+@home.route('/index')
+@login_required
 def index():
-    user = {'username': 'Administrator'}
-    return render_template('home/index.html', title='Dashboard', user=user)
+    return render_template('home/index.html', title='Welcome to KungFu Master')
 
 
 @home.route('/login', methods=['GET', 'POST'])

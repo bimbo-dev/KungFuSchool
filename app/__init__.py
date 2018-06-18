@@ -9,6 +9,7 @@ app.config.from_object(Config)
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 login = LoginManager(app)
+login.login_view = 'home.login'
 
 # configure Blueprints
 from .views import home, finance, rank, level, classes, student
