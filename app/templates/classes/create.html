@@ -1,0 +1,85 @@
+{% extends "./_layout.html" %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-8">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">{{ title }} Class</h3>
+            </div>
+            <div class="card-body">
+                <form class="form" method="post" id="target">
+                    {{ form.hidden_tag() }}
+                    <!--{{ form.id }}-->
+                    <div class="form-group">
+                        <label class="form-label">Level :</label>
+                        {{ form.level_id(class_='form-control', placeholder='Select Level') }}
+                        {% if form.level_id.errors %}
+                          <br>
+                          {% for error in form.level_id.errors %}
+                            <span style="color:red">[{{error}}]</span>
+                          {% endfor %}
+                      {% endif %}
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Day :</label>
+                        {{ form.class_day(class_='form-control', placeholder='Select Class Day') }}
+                        {% if form.class_day.errors %}
+                          <br>
+                          {% for error in form.class_day.errors %}
+                            <span style="color:red">[{{error}}]</span>
+                          {% endfor %}
+                      {% endif %}
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Time :</label>
+                        {{ form.class_time(class_='form-control', placeholder='Select Class Time') }}
+                        {% if form.class_time.errors %}
+                          <br>
+                          {% for error in form.class_time.errors %}
+                            <span style="color:red">[{{error}}]</span>
+                          {% endfor %}
+                      {% endif %}
+                    </div>
+                    <div class="form-footer">
+                        <a href="{{ url_for('classes.index') }}" class="btn btn-secondary">Cancel</a>
+                        <button type="button" id="save" class="btn btn-success">Save</button>
+
+                  </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $('#save').click(function(){
+            // e.preventDefault();
+            var day_ = $('#class_day').val();
+            var time_ = $('#class_time').val();
+            var id_ = $('#id').val();
+            var id_val = (id_ == '')? '0': id_;
+            var url = encodeURI('/classes/vacant/' + day_ + '/' + time_ + '/' + id_val);
+            $.when($.get(url))
+                .then(function(data) {
+                if(!data.vacant){
+                   swal("Class Day and Time already Exists!", {
+                        icon: "warning"
+                   });
+                }else{
+                    $('#target').submit();
+                }
+            });
+        });
+
+    });
+</script>
+
+{% endblock %}

@@ -1,0 +1,65 @@
+{% extends "./_layout.html" %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">{{ title }}</h3>
+                <div class="card-options">
+                    <a href="{{ url_for('rank.save') }}" class="btn btn-primary"><i class="fa fa-plus"></i> Add New Rank</a>
+                </div>
+            </div>
+            <div class="card-body">
+            <div class="table-responsive">
+                <table class="table card-table table-bordered page-table">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Belt Colour</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for item in items %}
+                        <tr>
+                            <td>{{ item.id }}</td>
+                            <td>{{ item.belt_colour }}</td>
+                            <td>
+                                <a href="{{ url_for('rank.save', rankid=item.id) }}" class="btn btn-outline-warning btn-sm">Edit</a>
+                                <a href="#" data-rankId="{{item.id}}" class="btn btn-outline-danger btn-sm delete-item">Delete</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
+
+{% block scripts %}
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+
+        $('.delete-item').on('click', function (){
+           var id = $(this).attr('data-rankId');
+           var url = '/rank/delete/' + id;
+           var title = "Delete This Rank?"
+
+            confirmDelete(url, title);
+        });
+
+    });
+
+</script>
+
+{% endblock %}

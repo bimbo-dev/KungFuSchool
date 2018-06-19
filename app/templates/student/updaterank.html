@@ -1,0 +1,78 @@
+{% extends "./_layout.html" %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-12">
+
+        <div class="card">
+            <div class="card-header">
+                <a href="{{ url_for('student.details', studentid=student.id) }}" class="btn btn-outline-secondary"><i class="fa fa-chevron-left"></i> Go Back To Student Details</a>
+            </div>
+            <div class="card-body">
+                <form class="form-inline" method="post">
+                    {{ form.hidden_tag() }}
+                    <div class="form-group">
+                        <label class="form-label">Update Student Rank : </label>
+                        &nbsp;
+                        {{ form.rank_id(class_='form-control', style='width:120px') }}
+                        &nbsp;
+                        <button type="submit" class="btn btn-success">Update</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">{{ student.full_name() }}'s Ranks</h3>
+            </div>
+            <div class="card-body">
+            <div class="table-responsive">
+                <table class="table card-table table-bordered page-table">
+                    <thead>
+                        <tr>
+                            <th>Belt Colour</th>
+                            <th>Date Attained</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for item in student.ranks %}
+                        <tr>
+                            <td>{{ item.rank.belt_colour }}</td>
+                            <td>{{ '{:%Y-%m-%d %H:%M}'.format(item.date_attained) }}</td>
+                            <td>
+                                <a data-id="{{item.id}}" class="btn btn-outline-danger btn-sm delete-item"><i class="fa fa-trash"></i> Remove</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        $('.delete-item').on('click', function (){
+           var id = $(this).attr('data-id');
+           var url = '/student/removerank/' + id;
+           var title = "Remove this Rank from Student?"
+
+            confirmDelete(url, title);
+        });
+
+    });
+
+</script>
+
+{% endblock %}

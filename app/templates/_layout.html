@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta http-equiv="Content-Language" content="en" />
+    <meta name="msapplication-TileColor" content="#2d89ef">
+    <meta name="theme-color" content="#4188c9">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <!--<link rel="icon" href="./favicon.ico" type="image/x-icon"/>
+    <link rel="shortcut icon" type="image/x-icon" href="./favicon.ico" />-->
+
+      {% if title %}
+      <title>{{ title }} - KungFu-Master</title>
+      {% else %}
+      <title>Welcome to KungFu-Master</title>
+      {% endif %}
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,400,400i,500,500i,600,600i,700,700i&amp;subset=latin-ext">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css">
+    <!--<link rel="stylesheet" href="{{ url_for('static', filename='assets/css/jquery.dataTables.min.css') }}">-->
+    <!--<script src="{{ url_for('static', filename='assets/js/require.min.js') }}"></script>-->
+    <script>
+      // requirejs.config({
+      //     baseUrl: './static'
+      // });
+    </script>
+    <!-- Dashboard Core -->
+    <link href="{{ url_for('static', filename='assets/css/dashboard.css') }}" rel="stylesheet" />
+      <script src="{{ url_for('static', filename='assets/js/vendors/jquery-3.2.1.min.js') }}"></script>
+      <script src="{{ url_for('static', filename='assets/js/vendors/bootstrap.bundle.min.js') }}"></script>
+      <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+      <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
+    <!--<script src="{{ url_for('static', filename='assets/js/jquery.dataTables.min.js') }}"></script>-->
+    {% block links %}
+    {% endblock %}
+  </head>
+
+  <body class="">
+    <div class="page">
+      <div class="page-main">
+        <div class="header py-4" style="padding-bottom: 0px !important;">
+          <div class="container">
+            <div class="d-flex">
+              <a class="header-brand" href="#" >
+                <!--<img src="./demo/brand/tabler.svg" class="header-brand-img" alt="tabler logo">-->
+                  <h1>KungFu Master</h1>
+              </a>
+              <div class="d-flex order-lg-2 ml-auto">
+                <div class="dropdown">
+                  <a href="#" class="nav-link pr-0 leading-none" data-toggle="dropdown">
+
+                    <span class="avatar" style="background-image: url(../static/assets/images/avatar-default.png)"></span>
+                    <span class="ml-2 d-none d-lg-block">
+                      <span class="text-default">Jet Lee</span>
+                      <small class="text-muted d-block mt-1">Administrator</small>
+                    </span>
+                  </a>
+                  <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                    <a class="dropdown-item" href="#">
+                      <i class="dropdown-icon fe fe-settings"></i> Settings
+                    </a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="{{url_for('home.logout')}}">
+                      <i class="dropdown-icon fe fe-log-out"></i> Sign out
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <a href="#" class="header-toggler d-lg-none ml-3 ml-lg-0" data-toggle="collapse" data-target="#headerMenuCollapse">
+                <span class="header-toggler-icon"></span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="header collapse d-lg-flex p-0" id="headerMenuCollapse">
+          <div class="container">
+            <div class="row align-items-center">
+
+              <div class="col-lg order-lg-first">
+                <ul class="nav nav-tabs border-0 flex-column flex-lg-row">
+                  <li class="nav-item">
+                    <a href="{{ url_for('home.index') }}" class="nav-link"><i class="fe fe-home"></i> Dashboard</a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="javascript:void(0)" class="nav-link" data-toggle="dropdown"><i class="fe fe-box"></i> Administration</a>
+                    <div class="dropdown-menu dropdown-menu-arrow">
+                      <a href="{{ url_for('finance.index') }}" class="dropdown-item ">Finances</a>
+                      <a href="{{ url_for('finance.paymentitems') }}" class="dropdown-item ">Payment Items</a>
+                      <a href="{{ url_for('rank.index') }}" class="dropdown-item ">Ranks</a>
+                      <a href="{{ url_for('level.index') }}" class="dropdown-item ">Levels</a>
+                    </div>
+                  </li>
+                  <li class="nav-item">
+                    <a href="javascript:void(0)" class="nav-link" data-toggle="dropdown"><i class="fe fe-activity"></i> Classes</a>
+                    <div class="dropdown-menu dropdown-menu-arrow">
+                      <a href="{{ url_for('classes.index') }}" class="dropdown-item ">Manage Classes</a>
+                    </div>
+                  </li>
+                  <li class="nav-item">
+                    <a href="javascript:void(0)" class="nav-link" data-toggle="dropdown"><i class="fe fe-users"></i> Students</a>
+                    <div class="dropdown-menu dropdown-menu-arrow">
+                      <a href="{{ url_for('student.index') }}" class="dropdown-item ">Manage Students</a>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+          <!-- Page Content Begins here -->
+        <div class="my-3 my-md-5">
+            <div class="container">
+                <div class="page-header">
+                    {% if title %}
+                  <h1 class="page-title">
+                    {{ title }}
+                  </h1>
+                    {% endif %}
+                </div>
+                {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                <ul>
+                    {% for message in messages %}
+                    <li>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+                {% endwith %}
+                {% block content %}{% endblock %}
+            </div>
+        </div>
+      </div>
+
+
+      <footer class="footer">
+        <div class="container">
+          <div class="row align-items-center flex-row-reverse">
+
+            <div class="col-12 col-lg-auto mt-3 mt-lg-0 text-center">
+              Copyright © 2018 <a href="#">Kung-Fu Master School</a>. Theme by <a href="https://codecalm.net" target="_blank">codecalm.net</a> All rights reserved.
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+  </body>
+
+</html>
+
+
+<script type="application/javascript">
+
+  $(document).ready(function(){
+
+        $('.page-table').dataTable();
+  });
+
+  function confirmDelete(url, title) {
+       swal({
+           title: title,
+           icon: "warning",
+           buttons: true,
+           dangerMode: true
+       }).then((deletekey) => {
+           if(deletekey){
+               $.get(url, function(data){
+                   if(data.success){
+                       swal("Successfully deleted!", {
+                            icon: "success"
+                       }).then(() => {
+                            location.reload(true);
+                       });
+                   }else{
+                       swal("An Error Occurred!", {
+                            icon: "error" });
+                   }
+               });
+            }
+       });
+  }
+</script>
+{% block scripts %}
+{% endblock %}

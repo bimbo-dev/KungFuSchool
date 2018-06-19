@@ -1,0 +1,65 @@
+{% extends "./_layout.html" %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Payment Items</h3>
+                <div class="card-options">
+                    <a href="{{ url_for('finance.save') }}" class="btn btn-primary"><i class="fa fa-plus"></i> Add New Payment Item</a>
+                </div>
+            </div>
+            <div class="card-body">
+            <div class="table-responsive">
+                <table class="table card-table table-bordered page-table">
+                    <thead>
+                        <tr>
+                            <th>Item Description</th>
+                            <th>Price</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for item in items %}
+                        <tr>
+                            <td>{{ item.description }}</td>
+                            <td>{{ '{:04.2f}'.format(item.price) }}</td>
+                            <td>
+                                <a href="{{ url_for('finance.save', itemid=item.id) }}" class="btn btn-outline-warning btn-sm">Edit</a>
+                                <a href="#" data-itemId="{{item.id}}" class="btn btn-outline-danger btn-sm delete-item">Delete</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
+
+{% block scripts %}
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        $('.delete-item').on('click', function (){
+           var id = $(this).attr('data-itemId');
+           var url = '/finance/delete/' + id;
+           var title = "Delete This Payment Item?"
+
+            confirmDelete(url, title);
+        });
+
+    });
+
+</script>
+
+{% endblock %}
