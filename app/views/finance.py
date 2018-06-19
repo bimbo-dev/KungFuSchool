@@ -40,7 +40,7 @@ def save(itemid=None):
         form.populate_obj(item)
         try:
             save_payment_item(item)
-            return redirect(url_for('finance.index'))
+            return redirect(url_for('finance.paymentitems'))
         except:
             flash('An Error Occurred!')
     return render_template('finance/create.html', title=title, form=form)

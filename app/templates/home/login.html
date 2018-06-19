@@ -29,7 +29,7 @@
     <link href="{{ url_for('static', filename='assets/css/dashboard.css') }}" rel="stylesheet" />
     <script src="{{ url_for('static', filename='assets/js/dashboard.js') }}"></script>
   </head>
-  <body class="">
+  <body class="" style="background: url(../../static/assets/images/martial-arts.jpg) no-repeat center fixed;background-size: cover">
     <div class="page">
       <div class="page-single">
         <div class="container">
@@ -37,7 +37,7 @@
             <div class="col col-login mx-auto">
               <div class="text-center mb-6">
                 <!--<img src="./demo/brand/tabler.svg" class="h-6" alt="">-->
-                  <h1>KungFu School</h1>
+                  <h1 style="color:#fff">KungFu School</h1>
               </div>
 
               <form class="card" action="" method="post">
@@ -85,7 +85,7 @@
                   {% endwith %}
                     <!--End flash messages -->
                   <div class="form-footer">
-                    <button type="submit" class="btn btn-primary btn-block">Sign in</button>
+                    <button type="submit" class="btn btn-outline-success btn-block">Sign in</button>
                   </div>
                 </div>
               </form>

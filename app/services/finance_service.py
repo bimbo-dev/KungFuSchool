@@ -1,5 +1,6 @@
 from app import app, db
 from app.models import PaymentItem, StudentPayment
+from datetime import datetime, timedelta
 
 
 def get_all_payments():
@@ -7,6 +8,8 @@ def get_all_payments():
 
 
 def get_all_payments_in_range(begin, end):
+    enddate = datetime.strptime(end, '%Y-%m-%d') + timedelta(days=1)
+    end = enddate.strftime('%Y-%m-%d')
     return StudentPayment.query.filter(StudentPayment.payment_date.between(begin, end))
 
 
